@@ -121,4 +121,4 @@ if __name__ == '__main__':
     socketio.run(app, host='0.0.0.0', port=80, debug=False)
 
     ipcon.disconnect()
-    masterbrick_garage_ipcon.disconnet()
+    masterbrick_garage_ipcon.disconnect()
