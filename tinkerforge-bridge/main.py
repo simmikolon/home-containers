@@ -1,5 +1,5 @@
-# HOST = "wifi-extension-v2"
-HOST = "192.168.1.139"
+#HOST = "wifi-extension-v2"
+HOST = "192.168.1.211"
 PORT = 4223
 UID = "CWZ"
 UDP_IP = "0.0.0.0"
@@ -29,7 +29,7 @@ import socket
 
 
 def cb_humidity(humidity):
-    print("Masterbrick Server - Humidity: " + str(temp/100.0) + " % RH")
+    print("Masterbrick Server - Humidity: " + str(humidity/100.0) + " % RH")
     string = "humserver=" + str(humidity/100.0)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(string.encode(), server_address)
@@ -37,7 +37,7 @@ def cb_humidity(humidity):
 
 
 def cb_temperature(temp):
-    print("Masterbrick Server - Temperature: " + str(temp/100.0) + " °C")
+    print("Masterbrick Server - Temperature: " + str(temp/100.0) + " C")
     string = "tempserver=" + str(temp/100.0)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(string.encode(), server_address)
@@ -45,7 +45,7 @@ def cb_temperature(temp):
 
 
 def cb_temperature_masterbrick_garage(temperature):
-    print("Masterbrick Garage - Temperature: " + str(temperature/100.0) + " °C")
+    print("Masterbrick Garage - Temperature: " + str(temperature/100.0) + " C")
     string = "tempgarage=" + str(temperature/100.0)
     sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)  # UDP
     sock.sendto(string.encode(), server_address)
@@ -113,7 +113,7 @@ if __name__ == '__main__':
     # --- GARAGE SERVER CALLBACKS ---
 
     masterbrick_garage_ipcon = IPConnection()
-    masterbrick_garage_ipcon.connect(HOST, PORT)
+    masterbrick_garage_ipcon.connect(MASTERBRICK_GARAGE_IP, MASTERBRICK_GARAGE_PORT)
     t = BrickletTemperature(MASTERBRICK_GARAGE_TEMPERATURE_EXTENSION_UID, masterbrick_garage_ipcon)
     t.register_callback(t.CALLBACK_TEMPERATURE, cb_temperature_masterbrick_garage)
     t.set_temperature_callback_period(30000)
